@@ -33,15 +33,21 @@ where kb_id = ? and group_id = ?
 order by  doc_id`, kbID, v.GroupID).Find(&docs)
 		for _, doc := range docs {
 			doc.DocHref = "/" + kbName + "/" + v.GroupShortUrl + "/" + doc.DocShortUrl
+			v.Children = append(v.Children,doc )
+			//subGrp:= make([]*DocModel.DocGrpImpl,0)
+			//this.getKbDetail(kbName, v., v.GroupID, &subGrp)
+			for _, item := range docs {
+				v.Children = append(v.Children,item)
+			}
+
 		}
 		subGrp:= make([]*DocModel.DocGrpImpl,0)
 		this.getKbDetail(kbName, kbID, v.GroupID, &subGrp)
-		docGrp:= make([]interface{},0)
 		for _, item := range docs {
-			docGrp=append(docGrp,item)
+			v.Children = append(v.Children,item)
 		}
-		v.Children = docGrp
-		v.Children = append(v.Children,subGrp )
+
+
 	}
 
 	return *result
