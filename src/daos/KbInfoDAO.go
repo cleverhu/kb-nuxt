@@ -14,7 +14,7 @@ func NewKbInfoDao() *KbInfoDAO {
 	return &KbInfoDAO{}
 }
 
-func (this *KbInfoDAO) GetKbDetail(username string, kbName int) []*DocGrpModel.DocGrpImpl {
+func (this *KbInfoDAO) GetKbDetail(username string, kbName string) []*DocGrpModel.DocGrpImpl {
 	var dgm []*DocGrpModel.DocGrpImpl
 
 	kbID := 120
