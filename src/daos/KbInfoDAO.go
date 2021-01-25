@@ -18,7 +18,7 @@ func (this *KbInfoDAO) GetKbDetail(username string, kbName string) []*DocModel.D
 
 	kbID := 120
 
-	this.getKbDetail(kbName, kbID, 0, &dgm)
+	this.getKbDetail("test", kbID, 0, &dgm)
 	return dgm
 }
 
@@ -30,14 +30,16 @@ order by group_order `, kbID, groupID).Find(&result)
 		var docs []*DocModel.DocImpl
 		this.DB.Table("docs").Raw(`select doc_id,doc_title,shorturl from docs 
 where kb_id = ? and group_id = ? 
-order by  doc_id`, kbID, v.GroupID).Find(&docs)
+order by  doc_id`, kbID, groupID).Find(&docs)
 		for _, doc := range docs {
 			doc.DocHref = "/" + kbName + "/" + v.GroupShortUrl + "/" + doc.DocShortUrl
 		}
+
 		v.Children = docs
 		for _, v2 := range docs {
 			this.getKbDetail(kbName, kbID, v.GroupID, &v2.Children)
 		}
+
 
 	}
 	return *result

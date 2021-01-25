@@ -1,9 +1,9 @@
 package DocModel
 
 type DocImpl struct {
-	DocID       int    `gorm:"column:doc_id;primary_key"`
-	DocTitle    string `gorm:"column:doc_title"`
-	DocShortUrl string `gorm:"column:shorturl"`
+	DocID       int    `gorm:"column:doc_id;primary_key"  json:"id"`
+	DocTitle    string `gorm:"column:doc_title" json:"label"`
+	DocShortUrl string `gorm:"column:shorturl" json:"url"`
 	DocHref     string `gorm:"-"` //拼接地址字符串
 	Children []*DocGrpImpl       `gorm:"-" json:"children,omitempty"`
 }
