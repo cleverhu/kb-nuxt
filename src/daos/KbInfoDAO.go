@@ -40,6 +40,11 @@ order by  doc_id`, kbID, v.GroupID).Find(&docs)
 			v.Children = append(v.Children,doc)
 
 		}
+		var grp []*DocModel.DocGrpImpl
+		this.getKbDetail(kbName, kbID, v.GroupID,&grp)
+		for _, item := range grp {
+			*result=append(*result,item)
+		}
 
 
 	}
