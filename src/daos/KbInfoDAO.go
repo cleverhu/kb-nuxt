@@ -1,7 +1,6 @@
 package daos
 
 import (
-	"fmt"
 	"gorm.io/gorm"
 	"knowledgeBaseNuxt/src/models/DocModel"
 )
@@ -26,27 +25,24 @@ func (this *KbInfoDAO) GetKbDetail(username string, kbName string) []*DocModel.D
 func (this *KbInfoDAO) getKbDetail(kbName string, kbID, groupID int, result *[]*DocModel.DocGrpImpl) []*DocModel.DocGrpImpl {
 	this.DB.Table("doc_grps").Raw(`select group_id,group_name,shorturl from doc_grps 
 where kb_id = ? and pid = ? 
-order by group_order `, kbID, groupID).Find(&result)
+order by group_order `, kbID, groupID).Find(result)
 	for _, v := range *result {
 		var docs []*DocModel.DocImpl
-		fmt.Println(v)
 		this.DB.Table("docs").Raw(`select doc_id,doc_title,shorturl from docs 
 where kb_id = ? and group_id = ? 
 order by  doc_id`, kbID, v.GroupID).Find(&docs)
-		fmt.Println(docs)
 		for _, doc := range docs {
 			doc.DocHref = "/" + kbName + "/" + v.GroupShortUrl + "/" + doc.DocShortUrl
-
-				fmt.Println(doc)
-				this.getKbDetail(kbName, kbID, v.GroupID, &doc.Children)
-
 		}
-
-		v.Children = docs
-
-
-
-
+		subGrp:= make([]*DocModel.DocGrpImpl,0)
+		this.getKbDetail(kbName, kbID, v.GroupID, &subGrp)
+		docGrp:= make([]interface{},0)
+		for _, item := range docs {
+			docGrp=append(docGrp,item)
+		}
+		v.Children = docGrp
+		v.Children = append(v.Children,subGrp )
 	}
+
 	return *result
 }
