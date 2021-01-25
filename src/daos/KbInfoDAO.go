@@ -2,7 +2,6 @@ package daos
 
 import (
 	"gorm.io/gorm"
-	"knowledgeBaseNuxt/src/models/DocGrpModel"
 	"knowledgeBaseNuxt/src/models/DocModel"
 )
 
@@ -14,8 +13,8 @@ func NewKbInfoDao() *KbInfoDAO {
 	return &KbInfoDAO{}
 }
 
-func (this *KbInfoDAO) GetKbDetail(username string, kbName string) []*DocGrpModel.DocGrpImpl {
-	var dgm []*DocGrpModel.DocGrpImpl
+func (this *KbInfoDAO) GetKbDetail(username string, kbName string) []*DocModel.DocGrpImpl {
+	var dgm []*DocModel.DocGrpImpl
 
 	kbID := 120
 
@@ -23,7 +22,7 @@ func (this *KbInfoDAO) GetKbDetail(username string, kbName string) []*DocGrpMode
 	return dgm
 }
 
-func (this *KbInfoDAO) getKbDetail(kbName string, kbID, groupID int, result *[]*DocModel.DocImpl) []*DocGrpModel.DocGrpImpl {
+func (this *KbInfoDAO) getKbDetail(kbName string, kbID, groupID int, result *[]*DocModel.DocGrpImpl) []*DocModel.DocGrpImpl {
 	this.DB.Table("doc_grps").Raw(`select group_id,group_name,shorturl from doc_grps 
 where kb_id = ? and pid = ? 
 order by group_order `, kbID, groupID).Find(&result)
@@ -36,7 +35,10 @@ order by  doc_id`, kbID, v.GroupID).Find(&docs)
 			doc.DocHref = "/" + kbName + "/" + v.GroupShortUrl + "/" + doc.DocShortUrl
 		}
 		v.Children = docs
-		this.getKbDetail(kbName, kbID, v.GroupID, &v.Children)
+		for _, v2 := range docs {
+			this.getKbDetail(kbName, kbID, v.GroupID, &v2.Children)
+		}
+
 	}
 	return *result
 }
