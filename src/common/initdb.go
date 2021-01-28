@@ -13,6 +13,7 @@ var (
 
 func init() {
 	Orm = gormDB()
+	//fmt.Println(Orm)
 }
 
 func gormDB() *gorm.DB {

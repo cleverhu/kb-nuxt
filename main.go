@@ -9,7 +9,7 @@ import (
 
 func main() {
 	goft.Ignite().
-		Config(configuration.NewDBConfig(), configuration.NewKbInfoServiceConfig()).
+		Config(configuration.NewDBConfig(), configuration.NewKbInfoServiceConfig(),configuration.NewRedisConfig()).
 		Attach().//全局中间件
 		Mount("", controllers.NewKbInfoController()).
 		Launch()
