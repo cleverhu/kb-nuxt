@@ -27,7 +27,7 @@ func (this *KbInfoController) KbDetailByID(ctx *gin.Context) goft.Json {
 	id := ctx.Param("id")
 	_, err := strconv.Atoi(id)
 	goft.Error(err, "知识库ID错误")
-	return gin.H{"code": 10000, "result": this.KbInfoService.KbDetailByID(120)}
+	return gin.H{"code": 10000, "result": this.KbInfoService.KbDetailByID("", "")}
 }
 
 func (this *KbInfoController) DocDetailByID(ctx *gin.Context) goft.Json {
@@ -38,8 +38,6 @@ func (this *KbInfoController) DocDetailByID(ctx *gin.Context) goft.Json {
 func (this *KbInfoController) Build(goft *goft.Goft) {
 	goft.Handle("GET", "/kns/:id", this.KbDetailByID).
 
-	Handle("GET","/doc/:shortUrl",this.DocDetailByID)
-
-
+		Handle("GET", "/doc/:shortUrl", this.DocDetailByID)
 
 }
