@@ -13,5 +13,6 @@ func NewRedisConfig() *RedisConfig {
 }
 
 func (this *RedisConfig) RedisClient() *redis.Client {
+
 	return common.Rds
 }

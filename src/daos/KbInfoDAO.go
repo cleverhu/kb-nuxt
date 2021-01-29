@@ -30,16 +30,16 @@ order by group_order`, kbID, groupID).Find(&result)
 	//遍历分组找文档
 	for _, v := range *result {
 		//找到文档
-		var docs []*DocModel.DocImpl
-		this.DB.Table("docs").Raw(`select doc_id,doc_title,shorturl from docs 
-where kb_id = ? and group_id = ? 
-order by doc_id`, kbID, v.GroupID).Find(&docs)
-
-		for _, doc := range docs {
-			//给文档追加到子元素
-			doc.DocHref = "/" + kbName + "/" + v.GroupShortUrl + "/" + doc.DocShortUrl
-			v.Children = append(v.Children, doc)
-		}
+		//		var docs []*DocModel.DocImpl
+		//		this.DB.Table("docs").Raw(`select doc_id,doc_title,shorturl from docs
+		//where kb_id = ? and group_id = ?
+		//order by doc_id`, kbID, v.GroupID).Find(&docs)
+		//
+		//		for _, doc := range docs {
+		//			//给文档追加到子元素
+		//			doc.DocHref = "/" + kbName + "/" + v.GroupShortUrl + "/" + doc.DocShortUrl
+		//			v.Children = append(v.Children, doc)
+		//		}
 
 		//寻找子分组 这个数据是临时的，不会返回真实数据
 		var grp []*DocGrpModel.DocGrpImpl
@@ -51,4 +51,8 @@ order by doc_id`, kbID, v.GroupID).Find(&docs)
 	return *result
 }
 
-
+func (this *KbInfoDAO) GetDocDetail(shortUrl string) *DocModel.DocContent {
+	result := &DocModel.DocContent{}
+	this.DB.Table("docs").Exec("select doc_title,doc_content from docs where shorturl = ?", shortUrl).Find(&result)
+	return result
+}

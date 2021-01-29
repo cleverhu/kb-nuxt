@@ -10,9 +10,9 @@ import (
 )
 
 type KbInfoController struct {
-	db            *gorm.DB                `inject:"-"`
+	DB            *gorm.DB                `inject:"-"`
 	KbInfoService *services.KbInfoService `inject:"-"`
-	rds           *redis.Client           `inject:"-"`
+	Rds           *redis.Client           `inject:"-"`
 }
 
 func NewKbInfoController() *KbInfoController {
@@ -27,12 +27,17 @@ func (this *KbInfoController) KbDetailByID(ctx *gin.Context) goft.Json {
 	id := ctx.Param("id")
 	_, err := strconv.Atoi(id)
 	goft.Error(err, "知识库ID错误")
-	result, err := this.rds.Get("kb:" + id).Result()
-	goft.Error(err, "获取知识库失败")
-	return gin.H{"code": 10000, "result": result}
+	//result, err := this.Rds.Get("kb:" + id).Result()
+	//goft.Error(err, "获取知识库失败")
+	return gin.H{"code": 10000, "result": this.KbInfoService.KbDetailByID(120)}
+}
+
+func (this *KbInfoController) DocDetailByID(ctx *gin.Context) goft.Json {
+	shortUrl := ctx.Param("shortUrl")
+	return gin.H{"code": 10000, "result": this.KbInfoService.DocDetailByID(shortUrl)}
 }
 
 func (this *KbInfoController) Build(goft *goft.Goft) {
-	goft.HandleWithFairing("GET", "/kns/:id", this.KbDetailByID)
-
+	goft.Handle("GET", "/kns/:id", this.KbDetailByID).
+	Handle("GET","/doc/:shortUrl",this.DocDetailByID)
 }

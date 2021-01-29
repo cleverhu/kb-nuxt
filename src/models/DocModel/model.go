@@ -10,8 +10,11 @@ type DocImpl struct {
 	Children    []interface{} `gorm:"-" json:"children,omitempty"`
 }
 
+type DocContent struct {
+	DocTitle   string `gorm:"column:doc_title" json:"doc_title"`
+	DocContent string `gorm:"column:doc_content" json:"doc_content"`
+}
 
 func (this *DocImpl) String() string {
 	return fmt.Sprintf("DocID:%d,DocTitle:%s,DocShortUrl:%s,DocHref:%s", this.DocID, this.DocTitle, this.DocShortUrl, this.DocHref)
 }
-

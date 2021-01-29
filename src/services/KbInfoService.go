@@ -3,6 +3,7 @@ package services
 import (
 	"knowledgeBaseNuxt/src/daos"
 	"knowledgeBaseNuxt/src/models/DocGrpModel"
+	"knowledgeBaseNuxt/src/models/DocModel"
 )
 
 type KbInfoService struct {
@@ -16,3 +17,9 @@ func NewKbInfoService() *KbInfoService {
 func (this *KbInfoService) KbDetailByID(kbID int) []*DocGrpModel.DocGrpImpl {
 	return this.KbUserDao.GetKbDetail("", "test")
 }
+
+func (this *KbInfoService) DocDetailByID(shortUrl string)*DocModel.DocContent{
+	return this.KbUserDao.GetDocDetail(shortUrl)
+}
+
+

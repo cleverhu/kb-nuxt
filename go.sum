@@ -113,6 +113,8 @@ github.com/shenyisyn/goft-expr v0.3.0 h1:B+n80BTZCvBE+R4wy1EtyvUF6HtXOw2xYffkQ9w
 github.com/shenyisyn/goft-expr v0.3.0/go.mod h1:iKC8XLbjdP5Gm/h5aAufw1yk8cz3tEkyjLl6PhCS5hQ=
 github.com/shenyisyn/goft-gin v0.4.1 h1:KToLHqKB6H9urxjzVXIjGQB1cxyheopsJG+zNLk4CMc=
 github.com/shenyisyn/goft-gin v0.4.1/go.mod h1:BjyLbuTjpgJQSiMb5zUV20EbJzu4DrUVI1RlbVrf3po=
+github.com/shenyisyn/goft-gin v0.4.5 h1:FA47hJSu/8F72ZnYKrwvtkvzNzQKtRx4PLJD0RGqXWk=
+github.com/shenyisyn/goft-gin v0.4.5/go.mod h1:BjyLbuTjpgJQSiMb5zUV20EbJzu4DrUVI1RlbVrf3po=
 github.com/shenyisyn/goft-ioc v0.5.4 h1:nWi6L/vKy5uMczAZ3sypMzDuHefcvz4FBq4eKcRIMh4=
 github.com/shenyisyn/goft-ioc v0.5.4/go.mod h1:4M6oyKxaJF3gY2Jl/dbL7vYr0H6E3FAVviF6GMj92as=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

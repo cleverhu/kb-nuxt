@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -12,6 +13,7 @@ var (
 )
 
 func init() {
+	fmt.Println("init db")
 	Orm = gormDB()
 	//fmt.Println(Orm)
 }

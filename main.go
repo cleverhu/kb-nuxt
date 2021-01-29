@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	//fmt.Println("123")
 	goft.Ignite().
 		Config(configuration.NewDBConfig(), configuration.NewKbInfoServiceConfig(),configuration.NewRedisConfig()).
 		Attach().//全局中间件
