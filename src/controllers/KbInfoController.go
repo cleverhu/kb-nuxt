@@ -36,8 +36,9 @@ func (this *KbInfoController) DocDetailByID(ctx *gin.Context) goft.Json {
 }
 
 func (this *KbInfoController) Build(goft *goft.Goft) {
+	//获取知识库分组信息
 	goft.Handle("GET", "/kns/:id", this.KbDetailByID).
-
+		//获取文章
 		Handle("GET", "/doc/:shortUrl", this.DocDetailByID)
 
 }
